@@ -50,7 +50,14 @@ public class MessageHelper {
 
     }
 
-    public static void showWelcomeSnakeAsAlert(final Context context, View view, String name, String familyName) {
+    public static void showSnake(final Context context, View view, String description) {
+        Snackbar snackbar = Snackbar.make(view, description, Snackbar.LENGTH_LONG)
+                .setActionTextColor(context.getResources().getColor(android.R.color.white));
+        snackbar.getView().setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+        snackbar.show();
+    }
+
+    public static void showWelcomeSnake(final Context context, View view, String name, String familyName) {
         Snackbar snackbar = Snackbar.make(view, name + " " + familyName + " خوش آمدید", Snackbar.LENGTH_LONG)
                 .setActionTextColor(context.getResources().getColor(android.R.color.white));
         snackbar.getView().setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
