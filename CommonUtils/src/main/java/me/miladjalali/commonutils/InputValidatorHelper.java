@@ -26,11 +26,11 @@ public class InputValidatorHelper {
         }
     }
 
-    public boolean ValidateInputMobile() {
+    public boolean ValidateInputMobile(EditText editText) {
         return true;
     }
 
-    public boolean ValidateInputPassword() {
+    public boolean ValidateInputPassword(EditText editText) {
         return true;
     }
 
@@ -39,6 +39,9 @@ public class InputValidatorHelper {
         return editText.getText().toString().trim();
     }
 
+    public boolean ValidateInputSmsCode(EditText editText,String smsCode){
+        return true;
+    }
     public boolean InputsHasError(){
         return error>0;
     }
