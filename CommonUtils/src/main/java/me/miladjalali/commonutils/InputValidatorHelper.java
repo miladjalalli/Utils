@@ -45,13 +45,13 @@ public class InputValidatorHelper {
 
     public boolean ValidateInputMobile(EditText editText) {
         String text = GetTextOfEditText(editText);
-        if (!text.substring(0, 2).equals("09")) {
-            error++;
-            editText.setError("شماره موبایل وارد شده صحیح نیست");
-            return false;
-        } else if (text.length() != 11) {
+        if (text.length() != 11) {
             error++;
             editText.setError("شماره موبایل باید 11 رقم باشد");
+            return false;
+        } else if (!text.substring(0, 2).equals("09")) {
+            error++;
+            editText.setError("شماره موبایل وارد شده صحیح نیست");
             return false;
         } else {
             editText.setError(null);
