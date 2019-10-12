@@ -27,6 +27,23 @@ public class InputValidatorHelper {
     }
 
 
+    public boolean ValidateInputDescription(EditText editText) {
+        String text = GetTextOfEditText(editText);
+        if (text.length() < 10) {
+            error++;
+            editText.setError("حداقل 10 کاراکتر وارد کنید");
+            return false;
+        } else if (text.length() > 750) {
+            error++;
+            editText.setError("حداکثر 750 کاراکتر مجاز است");
+            return false;
+        } else {
+            editText.setError(null);
+            return true;
+        }
+    }
+
+
     public boolean ValidateInputPassword(EditText editText) {
         String text = GetTextOfEditText(editText);
         if (text.length() < 6) {
@@ -58,7 +75,6 @@ public class InputValidatorHelper {
             return true;
         }
     }
-
 
     public boolean ValidateInputConfirmPassword(EditText editText, EditText editTextConfirm) {
         String text = GetTextOfEditText(editText);
