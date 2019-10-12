@@ -44,6 +44,19 @@ public class InputValidatorHelper {
     }
 
 
+    public boolean ValidateInputHasAtLeastOneChar(EditText editText) {
+        String text = GetTextOfEditText(editText);
+        if (text.length() < 1) {
+            error++;
+            editText.setError("تعداد را وارد کنید");
+            return false;
+        } else {
+            editText.setError(null);
+            return true;
+        }
+    }
+
+
     public boolean ValidateInputPassword(EditText editText) {
         String text = GetTextOfEditText(editText);
         if (text.length() < 6) {
