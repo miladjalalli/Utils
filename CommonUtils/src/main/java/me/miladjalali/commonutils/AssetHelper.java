@@ -23,13 +23,11 @@ public class AssetHelper {
 
             json = new String(buffer, StandardCharsets.UTF_8);
 
-
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
         }
         return json;
-
     }
 
 }
