@@ -12,15 +12,10 @@ public class AssetHelper {
         String json = null;
         try {
             InputStream is = context.getAssets().open(FileName);
-
             int size = is.available();
-
             byte[] buffer = new byte[size];
-
             is.read(buffer);
-
             is.close();
-
             json = new String(buffer, StandardCharsets.UTF_8);
 
         } catch (IOException ex) {
