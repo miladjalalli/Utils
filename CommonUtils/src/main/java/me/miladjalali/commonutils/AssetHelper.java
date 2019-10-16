@@ -22,6 +22,7 @@ public class AssetHelper {
             ex.printStackTrace();
             return null;
         }
+
         return json;
     }
 
