@@ -3,7 +3,6 @@ package me.miladjalali.commonutils;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,7 +87,7 @@ public class MessageHelper {
         snackbar.show();
     }
 
-    public static void TwoChooseSnackbar(Context context, View view, String text, View.OnClickListener onClickListenerPositive, View.OnClickListener onClickListenerNegative)
+    public Snackbar TwoChooseSnackbar(Context context, View view, String text, View.OnClickListener onClickListenerPositive, View.OnClickListener onClickListenerNegative)
     {
         // Create the Snackbar
         LinearLayout.LayoutParams objLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -109,17 +108,13 @@ public class MessageHelper {
         txtPositive.setOnClickListener(onClickListenerPositive);
 
         TextView txtNegative = snackView.findViewById(R.id.txtNegative);
-        txtNegative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                snackbar.dismiss();
-            }
-        });
+        txtNegative.setOnClickListener(onClickListenerNegative);
 
         // Add the view to the Snackbar's layout
         layout.addView(snackView, objLayoutParams);
         // Show the Snackbar
         snackbar.show();
+        return snackbar;
     }
 
 }
