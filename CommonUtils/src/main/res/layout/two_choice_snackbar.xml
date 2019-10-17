@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp"
+    android:background="#FFFFFF">
+
+
+    <TextView
+        android:id="@+id/txtPositive"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:text="بله"
+        android:textColor="@color/colorPrimary"/>
+    <TextView
+        android:id="@+id/txtNegative"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:text="خیر"
+        android:textColor="@color/colorAccent"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="right|center"
+        android:text="آیا این عملیات انجام شود؟"
+        android:textColor="@android:color/black"/>
+
+</LinearLayout>
