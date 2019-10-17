@@ -88,7 +88,7 @@ public class MessageHelper {
         snackbar.show();
     }
 
-    public void TwoChooseSnackbar(Context context, View view, String text, View.OnClickListener onClickListenerPositive, View.OnClickListener onClickListenerNegative)
+    public static void TwoChooseSnackbar(Context context, View view, String text, View.OnClickListener onClickListenerPositive, View.OnClickListener onClickListenerNegative)
     {
         // Create the Snackbar
         LinearLayout.LayoutParams objLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
