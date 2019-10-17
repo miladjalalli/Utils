@@ -92,13 +92,14 @@ public class MessageHelper {
     {
         // Create the Snackbar
         LinearLayout.LayoutParams objLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Snackbar snackbar = Snackbar.make(view, "", Snackbar.LENGTH_LONG);
+        final Snackbar snackbar = Snackbar.make(view, "", Snackbar.LENGTH_LONG);
+        snackbar.setDuration(7000);
         // Get the Snackbar's layout view
         Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
         layout.setPadding(0,0,0,0);
         // Hide the text
         TextView textView = layout.findViewById(com.google.android.material.R.id.snackbar_text);
-        textView.setVisibility(View.INVISIBLE);
+        textView.setVisibility(View.GONE);
 
         LayoutInflater mInflater = (LayoutInflater)context.getSystemService(LAYOUT_INFLATER_SERVICE);
         // Inflate our custom view
@@ -108,7 +109,12 @@ public class MessageHelper {
         txtPositive.setOnClickListener(onClickListenerPositive);
 
         TextView txtNegative = snackView.findViewById(R.id.txtNegative);
-        txtNegative.setOnClickListener(onClickListenerNegative);
+        txtNegative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackbar.dismiss();
+            }
+        });
 
         // Add the view to the Snackbar's layout
         layout.addView(snackView, objLayoutParams);
