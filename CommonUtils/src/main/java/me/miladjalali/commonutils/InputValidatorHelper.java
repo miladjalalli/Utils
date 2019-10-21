@@ -60,7 +60,7 @@ public class InputValidatorHelper {
             if (error == 0)
                 editText.requestFocus();
             return false;
-        } else if (text.length() < 3) {
+        } else if (text.length() <= 3) {
             error++;
             editText.setError("مبلغ وارد شده نمی تواند کمتر از 100 تومان باشد");
             if (error == 0)
