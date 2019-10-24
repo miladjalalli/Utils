@@ -169,7 +169,6 @@ public class InputValidatorHelper {
         return editText.getText().toString().trim();
     }
 
-
     public static void DisableEditText(EditText editText) {
         editText.setEnabled(false);
     }
