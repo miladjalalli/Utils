@@ -169,6 +169,15 @@ public class InputValidatorHelper {
         return editText.getText().toString().trim();
     }
 
+
+    public static void DisableEditText(EditText editText) {
+        editText.setEnabled(false);
+    }
+
+    public static void EnableEditText(EditText editText) {
+        editText.setEnabled(true);
+    }
+
     public boolean InputsHasError() {
         return error > 0;
     }
