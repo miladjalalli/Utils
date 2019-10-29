@@ -55,5 +55,4 @@ public class DisplayHelper {
         });
         return width[0];
     }
-
 }
