@@ -283,38 +283,44 @@ public class ImageUtils {
 
     }
 
-    public static void ResizeImageInCurrentOrientationByUri(Context context, Uri uri) throws IOException {
+    public static void ResizeImageInCurrentOrientationByUri(final Context context, final Uri uri) throws IOException {
 
-        try {
-            File file = new File(uri.getPath());
-            FileOutputStream fOut;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    File file = new File(uri.getPath());
+                    FileOutputStream fOut;
 
-            Bitmap bitmap = new ImageUtils().getDownsampledBitmap(context, uri, 768, 1080);
+                    Bitmap bitmap = new ImageUtils().getDownsampledBitmap(context, uri, 768, 1080);
 
-            ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
-            byte[] out = null;
-            if (bitmap.getWidth() <= 1000) {
-                fOut = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 60, fOut);
-            } else if (1000 < bitmap.getWidth() && bitmap.getWidth() < 2000) {
-                fOut = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 45, fOut);
-            } else if (bitmap.getWidth() >= 2000) {
-                fOut = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 25, fOut);
-            } else {
-                fOut = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 25, fOut);
+                    ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
+                    byte[] out = null;
+                    if (bitmap.getWidth() <= 1000) {
+                        fOut = new FileOutputStream(file);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 60, fOut);
+                    } else if (1000 < bitmap.getWidth() && bitmap.getWidth() < 2000) {
+                        fOut = new FileOutputStream(file);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 45, fOut);
+                    } else if (bitmap.getWidth() >= 2000) {
+                        fOut = new FileOutputStream(file);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 25, fOut);
+                    } else {
+                        fOut = new FileOutputStream(file);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 25, fOut);
+                    }
+
+                    fOut.flush();
+                    fOut.close();
+                    bitmap.recycle();
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        }).start();
 
-            fOut.flush();
-            fOut.close();
-            bitmap.recycle();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 
