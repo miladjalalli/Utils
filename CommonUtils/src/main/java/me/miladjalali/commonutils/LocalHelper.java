@@ -6,15 +6,13 @@ import java.util.Locale;
 import java.util.Set;
 
 
-public class LocalHelper
-{
+public class LocalHelper {
 
     public static final String TAG = "LocalHelper";
 
     private static final Set<String> RTL;
 
-    static
-    {
+    static {
         Set<String> lang = new HashSet<>();
         lang.add("ar"); // Arabic
         lang.add("dv"); // Divehi
@@ -31,37 +29,51 @@ public class LocalHelper
     }
 
 
-    public static Locale getDefaultLocale()
-    {
+    public static Locale getDefaultLocale() {
         return Locale.getDefault();
     }
 
 
-    public static String convertEnNumbersToLocal(String text, String lang)
-    {
-        char[] arabicChars = {'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'};
-        char[] farsiChars = {'۰','١','٢','٣','۴','۵','۶','٧','٨','٩'};
+    public static String convertEnNumbersToFa(String text) {
+        String[] faNumbers = new String[]{"۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"};
+        if (text.length() == 0) {
+            return "";
+        }
+        String out = "";
+        int length = text.length();
+        for (int i = 0; i < length; i++) {
+            char c = text.charAt(i);
+            if ('0' <= c && c <= '9') {
+                int number = Integer.parseInt(String.valueOf(c));
+                out += faNumbers[number];
+            } else if (c == '٫' || c == ',') {
+                out += '،';
+            } else {
+                out += c;
+            }
+        }
+        return out;
+    }
+
+
+    public static String convertEnNumbersToLocal(String text, String lang) {
+        char[] arabicChars = {'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
+        char[] farsiChars = {'۰', '١', '٢', '٣', '۴', '۵', '۶', '٧', '٨', '٩'};
 
         StringBuilder builder = new StringBuilder();
 
-        for(int i =0;i<text.length();i++)
-        {
+        for (int i = 0; i < text.length(); i++) {
             Character c = text.charAt(i);
-            if(Character.isDigit(c))
-            {
-                if(lang.startsWith("ar"))
-                    builder.append(arabicChars[ ((int) c) -48 ]);
-                else if(lang.startsWith("fa"))
-                    builder.append(farsiChars[ ((int)c) -48 ]);
+            if (Character.isDigit(c)) {
+                if (lang.startsWith("ar"))
+                    builder.append(arabicChars[((int) c) - 48]);
+                else if (lang.startsWith("fa"))
+                    builder.append(farsiChars[((int) c) - 48]);
                 else
                     builder.append(c);
-            }
-            else if (c == '٫' && lang.startsWith("fa") && lang.startsWith("ar"))
-            {
+            } else if (c == '٫' && lang.startsWith("fa") && lang.startsWith("ar")) {
                 builder.append('،');
-            }
-            else
-            {
+            } else {
                 builder.append(text.charAt(i));
             }
         }
@@ -69,14 +81,13 @@ public class LocalHelper
         return builder.toString();
     }
 
-    public static String convertNumbersToLocal(String text,String forceLang)
-    {
-        if(text == null)
+    public static String convertNumbersToLocal(String text, String forceLang) {
+        if (text == null)
             return "";
 
-        char[] arabicChars = {'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'};
-        char[] farsiChars = {'۰','١','٢','۳','۴','۵','۶','٧','٨','٩'};
-        char[] englishChars = {'0','1','2','3','4','5','6','7','8','9'};
+        char[] arabicChars = {'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
+        char[] farsiChars = {'۰', '١', '٢', '۳', '۴', '۵', '۶', '٧', '٨', '٩'};
+        char[] englishChars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
         boolean rtlDir = false;
 
@@ -84,47 +95,40 @@ public class LocalHelper
         Character c;
         int idx;
 
-        if(forceLang.startsWith("ar") || forceLang.startsWith("fa"))
+        if (forceLang.startsWith("ar") || forceLang.startsWith("fa"))
             rtlDir = true;
 
-        for(int i =0; i<text.length(); i++)
-        {
+        for (int i = 0; i < text.length(); i++) {
             c = text.charAt(i);
 
-            if(Character.isDigit(c))
-            {
+            if (Character.isDigit(c)) {
                 idx = -2;
 
-                for(int k=0; k<10; k++)
-                    if(arabicChars[k] == c)
-                    {
+                for (int k = 0; k < 10; k++)
+                    if (arabicChars[k] == c) {
                         idx = k;
                         break;
                     }
 
-                for(int k=0; k<10; k++)
-                    if(farsiChars[k] == c)
-                    {
+                for (int k = 0; k < 10; k++)
+                    if (farsiChars[k] == c) {
                         idx = k;
                         break;
                     }
 
-                for(int k=0; k<10; k++)
-                    if(englishChars[k] == c)
-                    {
+                for (int k = 0; k < 10; k++)
+                    if (englishChars[k] == c) {
                         idx = k;
                         break;
                     }
 
-                if(forceLang.startsWith("ar"))
-                    builder.append(arabicChars[ idx ]);
-                else if(forceLang.startsWith("fa"))
-                    builder.append(farsiChars[ idx ]);
-                else if(forceLang.startsWith("en"))
-                    builder.append(englishChars[ idx ]);
-            }
-            else
-            {
+                if (forceLang.startsWith("ar"))
+                    builder.append(arabicChars[idx]);
+                else if (forceLang.startsWith("fa"))
+                    builder.append(farsiChars[idx]);
+                else if (forceLang.startsWith("en"))
+                    builder.append(englishChars[idx]);
+            } else {
                 builder.append(text.charAt(i));
             }
         }
