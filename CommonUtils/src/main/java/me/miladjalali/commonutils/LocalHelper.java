@@ -77,7 +77,7 @@ public class LocalHelper {
     }
 
 
-    public static String convertEnNumbersToLocal(String text, String lang) {
+    public static String convertEnNumbersToLocal(String text) {
 
         Map<Character, Character> arabicCharsDictionary = new HashMap<>();
         arabicCharsDictionary.put('۰', '0');
@@ -107,13 +107,11 @@ public class LocalHelper {
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
 
-            if (lang.startsWith("ar"))
-                if(arabicCharsDictionary.containsKey(c))
-                    text = text.replace(c, arabicCharsDictionary.get(c));
+            if (arabicCharsDictionary.containsKey(c))
+                text = text.replace(c, arabicCharsDictionary.get(c));
 
-                else if (lang.startsWith("fa"))
-                    if(farsiCharsDictionary.containsKey(c))
-                        text = text.replace(c, farsiCharsDictionary.get(c));
+            if (farsiCharsDictionary.containsKey(c))
+                text = text.replace(c, farsiCharsDictionary.get(c));
 
         }
 
