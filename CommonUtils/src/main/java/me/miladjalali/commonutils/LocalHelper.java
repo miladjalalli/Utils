@@ -1,8 +1,11 @@
 package me.miladjalali.commonutils;
 
 import java.util.Collections;
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -33,7 +36,7 @@ public class LocalHelper {
         return Locale.getDefault();
     }
 
-    public static String  WhatIsLangOfText(String text) {
+    public static String WhatIsLangOfText(String text) {
 
         char[] arabicChars = {'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
         char[] farsiChars = {'۰', '١', '٢', '٣', '۴', '۵', '۶', '٧', '٨', '٩'};
@@ -48,7 +51,7 @@ public class LocalHelper {
                 return "fa";
             }
         }
-        return  "fa";
+        return "fa";
     }
 
 
@@ -75,29 +78,48 @@ public class LocalHelper {
 
 
     public static String convertEnNumbersToLocal(String text, String lang) {
-        char[] arabicChars = {'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
-        char[] farsiChars = {'۰', '١', '٢', '٣', '۴', '۵', '۶', '٧', '٨', '٩'};
 
-        StringBuilder builder = new StringBuilder();
+        Map<Character, Character> arabicCharsDictionary = new HashMap<>();
+        arabicCharsDictionary.put('۰', '0');
+        arabicCharsDictionary.put('١', '1');
+        arabicCharsDictionary.put('٢', '2');
+        arabicCharsDictionary.put('٣', '3');
+        arabicCharsDictionary.put('٤', '4');
+        arabicCharsDictionary.put('٥', '5');
+        arabicCharsDictionary.put('٦', '6');
+        arabicCharsDictionary.put('٧', '7');
+        arabicCharsDictionary.put('٨', '8');
+        arabicCharsDictionary.put('٩', '9');
+
+
+        Map<Character, Character> farsiCharsDictionary = new HashMap<>();
+        farsiCharsDictionary.put('۰', '0');
+        farsiCharsDictionary.put('١', '1');
+        farsiCharsDictionary.put('٢', '2');
+        farsiCharsDictionary.put('٣', '3');
+        farsiCharsDictionary.put('۴', '4');
+        farsiCharsDictionary.put('۵', '5');
+        farsiCharsDictionary.put('۶', '6');
+        farsiCharsDictionary.put('٧', '7');
+        farsiCharsDictionary.put('٨', '8');
+        farsiCharsDictionary.put('٩', '9');
 
         for (int i = 0; i < text.length(); i++) {
-            Character c = text.charAt(i);
-            if (Character.isDigit(c)) {
-                if (lang.startsWith("ar"))
-                    builder.append(arabicChars[((int) c) - 48]);
+            char c = text.charAt(i);
+
+            if (lang.startsWith("ar"))
+                if(arabicCharsDictionary.containsKey(c))
+                    text = text.replace(c, arabicCharsDictionary.get(c));
+
                 else if (lang.startsWith("fa"))
-                    builder.append(farsiChars[((int) c) - 48]);
-                else
-                    builder.append(c);
-            } else if (c == '٫' && lang.startsWith("fa") && lang.startsWith("ar")) {
-                builder.append('،');
-            } else {
-                builder.append(text.charAt(i));
-            }
+                    if(farsiCharsDictionary.containsKey(c))
+                        text = text.replace(c, farsiCharsDictionary.get(c));
+
         }
 
-        return builder.toString();
+        return text;
     }
+
 
     public static String convertNumbersToLocal(String text, String forceLang) {
         if (text == null)
