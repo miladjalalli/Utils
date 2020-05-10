@@ -33,6 +33,24 @@ public class LocalHelper {
         return Locale.getDefault();
     }
 
+    public static String  WhatIsLangOfText(String text) {
+
+        char[] arabicChars = {'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
+        char[] farsiChars = {'۰', '١', '٢', '٣', '۴', '۵', '۶', '٧', '٨', '٩'};
+
+        for (char arabicChar : arabicChars) {
+            if (text.contains(String.valueOf(arabicChar))) {
+                return "ar";
+            }
+        }
+        for (char farsiChar : farsiChars) {
+            if (text.contains(String.valueOf(farsiChar))) {
+                return "fa";
+            }
+        }
+        return  "fa";
+    }
+
 
     public static String convertEnNumbersToFa(String text) {
         String[] faNumbers = new String[]{"۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"};
