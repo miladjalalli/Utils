@@ -162,7 +162,8 @@ public class InputValidatorHelper {
     }
 
     public boolean ValidateInputSmsCode(EditText editText, String smsCode) {
-        if (smsCode.length() < 5) {
+        String text = GetTextOfEditText(editText);
+        if (!text.equals(smsCode)) {
             error++;
             editText.setError("لطفا کد را به صورت صحیح وارد کنید");
             if (error == 0)
